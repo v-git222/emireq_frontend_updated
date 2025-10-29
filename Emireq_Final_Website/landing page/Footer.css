@@ -1,0 +1,314 @@
+:root {
+  /* light theme vars tuned to the screenshot */
+  --muted: #6B7280;         /* muted gray for links and small text */
+  --text: #111827;          /* main text color (gray-900) */
+  --accent: #FFC300;        /* yellow accent used for headlines & button */
+  --bg: #FFFFFF;            /* page background - white */
+  --input-bg: #F3F4F6;      /* light input background */
+  --input-border: #E6E9EE;  /* subtle border */
+  --radius: 12px;
+  --container-width: 1180px;
+  --max-width: 1440px;
+}
+
+/* base layout */
+.er-footer {
+  font-family: 'Inter', 'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 72px 24px;
+  gap: 48px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* top area: brand + nav */
+.er-footer__top {
+  width: var(--container-width);
+  max-width: calc(var(--container-width));
+  display: flex;
+  justify-content: space-between;
+  gap: 36px;
+  align-items: flex-start;
+}
+
+/* brand block */
+.er-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  background: none;
+  border: none;
+}
+
+.er-logo-box {
+  width: auto;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.er-logo {
+  width: 140px;      /* smaller, matches pictured proportion */
+  height: auto;
+  position: relative;
+  top: -33px;
+  object-fit: contain;
+  display: block;
+  left : -10px;
+
+}
+
+/* show the brand name (screenshot shows the wordmark) */
+.er-brand-name {
+  display: block;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+/* brand text and description */
+.er-brand-text {
+  display: flex;
+  position: relative;
+  top: -10px;
+  right: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+}
+
+.er-brand-desc {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--muted);
+  margin: 0;
+  max-width: 320px;
+}
+
+/* social icons styled as circular light backgrounds */
+.er-social {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.er-social__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #F7F7F8;   /* soft light circle */
+  text-decoration: none;
+  color: var(--text);
+  font-size: 16px;
+  border: 1px solid rgba(16,24,40,0.04);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.er-social__link:hover {
+  background: rgba(255,195,0,0.12);
+  transform: translateY(-2px);
+}
+
+/* footer navigation columns */
+.er-footer__nav {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.er-col {
+  width: 210px;
+}
+
+.er-col__title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--accent);
+}
+
+.er-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.er-list a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.15s ease;
+}
+
+.er-list a:hover {
+  color: var(--text);
+}
+
+/* newsletter line */
+.er-footer__newsletter {
+  width: var(--container-width);
+  max-width: var(--container-width);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.er-news-left {
+  max-width: 560px;
+}
+
+.er-news-title {
+  font-size: 28px;
+  margin: 0 0 6px;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.er-news-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* form controls */
+.er-news-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.er-input {
+  box-sizing: border-box;
+  display: block;
+  padding: 14px 16px;
+  width: 480px;
+  height: 48px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+}
+
+.er-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* primary subscribe button */
+.er-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  height: 48px;
+  background: #FFC300;       /* bright yellow */
+  border-radius: 10px;
+  font-weight: 700;
+  border: 0;
+  cursor: pointer;
+  color: #121212;            /* dark text for contrast on yellow */
+  box-shadow: 0 6px 14px rgba(255,195,0,0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.er-btn:hover {
+  transform: translateY(-2px);
+  background: #ffd633;
+  box-shadow: 0 10px 22px rgba(255,195,0,0.16);
+}
+
+
+/* bottom row */
+.er-footer__bottom {
+  width: var(--container-width);
+  max-width: var(--container-width);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 28px;
+  border-top: 1px solid #E6E9EE;
+  gap: 12px;
+}
+
+.er-copyright {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.er-legal {
+  display: flex;
+  gap: 22px;
+}
+
+.er-legal a {
+  color: var(--muted);
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(107,114,128,0.08);
+  padding-bottom: 2px;
+  transition: color 0.12s ease;
+}
+
+.er-legal a:hover {
+  color: var(--text);
+}
+
+/* accessibility helper remains */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .er-footer__top, .er-footer__newsletter, .er-footer__bottom {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .er-footer__nav {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .er-footer__brand {
+    margin-bottom: 16px;
+  }
+  .er-input {
+    width: 100%;
+  }
+  .er-news-left {
+    margin-bottom: 12px;
+  }
+}
+
