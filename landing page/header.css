@@ -1,0 +1,140 @@
+/* ====== Root Navigation Styles ====== */
+.glass-nav {
+  width: auto;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(6px);
+  border: 0.8px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 24px rgba(67,83,96,0.25);
+  position: sticky;
+  /* top: 1px; */
+  height: 50px;
+  z-index: 1000;
+  isolation: isolate;
+}
+
+/* ====== Inner Container ====== */
+.nav-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  margin-top: 10px;
+  padding: 10px 80px; /* reduced height by 5px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 12px;
+ 
+}
+
+/* ====== Logo ====== */
+.nav-logo img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* ====== Nav Links ====== */
+.nav-links ul {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  font-family: "DM Sans", sans-serif;
+  font-size: 17px; /* increased by 1px */
+  font-weight: 500; /* semi-bold, half pixel less in thickness than 700 */
+  line-height: 1.45;
+  color: #121212;
+  text-decoration: none;
+  transition: opacity 0.15s ease;
+}
+
+.nav-links a:hover {
+  opacity: 0.8;
+}
+
+/* ====== Right Action Buttons ====== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-outline,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease; /* smooth hover animation */
+  cursor: pointer;
+}
+
+/* Outline Button (white background by default) */
+.btn-outline {
+  border: 1px solid #C1C1C1;
+  color: #090909;
+  background: transparent;
+}
+
+/* Hover → invert to blue */
+.btn-outline:hover {
+  background: #152B5A;
+  color: #ffffff;
+  border-color: #152B5A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Filled Button (blue background by default) */
+.btn-primary {
+  background: #152B5A;
+  color: #ffffff;
+  border: 1px solid #152B5A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Hover → invert to white */
+.btn-primary:hover {
+  background: #ffffff;
+  color: #152B5A;
+  border-color: #152B5A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Optional: active (click) states for both */
+.btn-outline:active,
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ====== Responsive (optional) ====== */
+@media (max-width: 1024px) {
+  .nav-container {
+    padding: 24px 40px;
+  }
+
+  .nav-links ul {
+    gap: 24px;
+  }
+
+  .nav-actions a {
+    padding: 6px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* hide links for mobile */
+  }
+}
+

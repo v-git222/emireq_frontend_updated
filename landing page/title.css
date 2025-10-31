@@ -1,0 +1,64 @@
+/* Title container (matches the Figma spec provided) */
+.hero-title {
+  box-sizing: border-box;
+  width: 958px;
+  height: 156px;
+  font-family: "URW Geometric", "Inter", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 80px;
+  line-height: 78px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #2F2F33;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1000px) {
+  .hero-title {
+    width: min(92%, 958px);
+    font-size: calc(80px * 0.8);
+    line-height: calc(78px * 0.8);
+  }
+}
+
+/* Wrapper for title + subtitle */
+.hero-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: min(960px, 92%);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Subtitle styling */
+.hero-subtitle {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  text-align: center;
+  color: #43536D;
+  margin: 0;
+  padding: 0;
+  max-width: 720px;
+  width: 100%;
+  white-space: normal;
+}
+
+@media (max-width: 768px) {
+  .hero-subtitle {
+    font-size: 18px;
+    line-height: 26px;
+    max-width: 90%;
+  }
+}
+
