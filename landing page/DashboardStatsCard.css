@@ -1,0 +1,600 @@
+/* DashboardStatsCard.css
+   Desktop-first sizing. Adjust tokens to suit your design system.
+*/
+
+/* Container */
+.dashboard-container {
+  width: 1150px;
+  height: 333px;
+  display: flex;
+  gap: 24px;
+  margin: 0 auto;
+  align-items: center;
+  box-sizing: border-box;
+  /* optional: enhance background contrast for preview */
+  /* background: #fafafa; */
+}
+
+/* Shared card base */
+.card {
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 28px;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px;
+  height: 333px;
+  flex-shrink: 0;
+  /* subtle outer soft shadow similar to image */
+  box-shadow:
+    0px 0px 0px 1.6px rgba(14,63,126,0.04),
+    0px 1.6px 1.6px -0.8px rgba(42,51,69,0.04),
+    0px 4.85px 4.85px -2.425px rgba(42,51,70,0.04),
+    0px 9.7px 9.7px -4.85px rgba(42,51,70,0.04),
+    0px 19.4px 19.4px -9.7px rgba(14,63,126,0.04),
+    0px 38.8px 38.8px -19.4px rgba(14,63,126,0.04);
+}
+
+/* Card widths */
+.card--yellow { width: 347px; background: #f6b800; border-radius: 32px; }
+.card--dark   { width: 378px; background: linear-gradient(180deg, #0e1722 0%, #0b1117 100%); color: #fff; border-radius: 28px; }
+.card--white  { width: 378px; background: #fff; border: 0.74px solid #CAD3FF; border-radius: 29.5px; }
+/* Yellow card (left) */
+/* ====== Yellow card (Figma-based) ====== */
+/* Container (outer card) */
+
+/* Outer wrapper allows the badge to overflow */
+.card-wrapper {
+  position: relative;
+  display: inline-block;
+  overflow: visible; /* allow badge to escape */
+}
+/* ---------- Replace existing .card--dark + avatar rules with this block ---------- */
+/* =============== Final .card--dark ================== */
+
+.card--dark {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(
+      120% 160% at 70% 0%, 
+      rgba(255, 255, 255, 0.16) 0%, 
+      rgba(255, 255, 255, 0.06) 35%, 
+      rgba(0, 0, 0, 0) 100%
+    ),
+    radial-gradient(
+      140% 120% at -20% 80%, 
+      rgba(0, 0, 0, 0.6) 0%, 
+      rgba(0, 0, 0, 0) 70%
+    ),
+    linear-gradient(
+      180deg, 
+      #0b1118 0%, 
+      #0a0f16 100%
+    );
+  border-radius: 28px;
+  color: #fff;
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.35),
+    inset 0 0 40px rgba(255, 255, 255, 0.05);
+}
+
+/* === Gradient Overlay (from Figma image layer) === */
+.card--dark::before {
+  content: "";
+  position: absolute;
+  width: 1121px;
+  height: 729.47px;
+  left: -8.45px;
+  top: -249.45px;
+  background: url('/assets/bg_removal.png') center/cover no-repeat;
+  transform: matrix(-0.43, 0.9, -0.9, -0.43, 0, 0);
+  opacity: 0.22; /* adjust between 0.18–0.3 depending on how strong you want the gloss */
+  mix-blend-mode: lighten; /* makes it blend with highlights naturally */
+  filter: blur(1.2px); /* smoothens hard edges of the imported shape */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* optional subtle inner glow for richer depth */
+.card--dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 50% at 50% 10%, rgba(255,255,255,0.06), rgba(255,255,255,0) 70%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* text sits above */
+.card--dark > * { position: relative; z-index: 3; }
+
+/* number + plus */
+.card--dark .stat-number {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 73px;
+  line-height: 1.05;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px 0;
+}
+.card--dark .stat-number .plus {
+  color: #fec42c;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 64px;
+  margin-left: 6px;
+  vertical-align: top;
+}
+
+/* subtitle text */
+.card--dark .stat-sub {
+  font-family: "DM Sans", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #9a968f;
+  max-width: 320px;
+  margin: 0 0 8px 0;
+}
+
+/* avatar row */
+.card--dark .stat-avatars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: auto;
+  padding-left: 6px;
+  z-index: 4;
+  transform: translateY(6px);
+}
+
+/* avatar images */
+.card--dark .avatar {
+  width: 61px;
+  height: 61px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  margin-left: -11px;
+  border: 2px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 10px 20px rgba(0,0,0,0.55),
+    0 1px 4px rgba(0,0,0,0.3) inset;
+  background-color: #ccc;
+  transform: translateZ(0);
+}
+.card--dark .avatar:first-child { margin-left: 0; }
+
+/* white plus chip */
+.card--dark .avatar-plus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-left: 16px;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1;
+  background: transparent;
+  z-index: 4;
+}
+
+/* responsive */
+@media (max-width: 420px) {
+  .card--dark { width: 320px; height: 290px; padding: 24px 20px; border-radius: 22px; }
+  .card--dark .stat-number { font-size: 56px; }
+  .card--dark .stat-number .plus { font-size: 46px; }
+  .card--dark .avatar { width: 48px; height: 48px; margin-left: -8px; border-width: 2px; }
+  .card--dark .avatar-plus { font-size: 36px; width: 44px; height: 44px; margin-left: 12px; }
+}
+
+
+
+/* Actual card stays clipped (for bottom circle) */
+.card--yellow {
+  position: relative;
+  width: 346px;
+  height: 333px;
+  background: #FFC300;
+  border: 0.8px solid #CAD3FF;
+  border-radius: 32px;
+  overflow: hidden; /* keeps bottom yellow circle clipped */
+  box-shadow:
+    0 0 0 1.7px rgba(14, 63, 126, 0.04),
+    0 1.7px 1.7px -0.8px rgba(42, 51, 69, 0.04),
+    0 5px 5px -2.6px rgba(42, 51, 70, 0.04),
+    0 10px 10px -5.2px rgba(42, 51, 70, 0.04),
+    0 20px 20px -10px rgba(14, 63, 126, 0.04),
+    0 42px 42px -21px rgba(14, 63, 126, 0.04);
+}
+
+
+/* Inner yellow decorative panel (the yellow rectangle from Figma) */
+.card--yellow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 331.44px;  /* matches Figma inner rect */
+  height: 300.17px;
+  background: #FFC300; /* pure yellow fill used in Figma */
+  opacity: 1;
+  border-radius: 25px; /* matches the inner radius */
+  transform: translate(7px, 18px); /* replicate left/top offset in spec (2px & 18px were indicated; this visually centers the inner shape) */
+  pointer-events: none;
+  mix-blend-mode: normal;
+  z-index: 1;
+}
+
+/* Decorative grey overlay (if you need the grey rectangle on top of yellow) */
+.card--yellow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 331.44px;
+  height: 300.17px;
+  background: rgba(217, 217, 217, 0.20); /* light gray overlay — adjust opacity if undesired */
+  border-radius: 25px;
+  transform: translate(7px, 18px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Content wrapper aligned center-left per spec */
+/* Content stays above the circle */
+/* Content inside the card */
+.card__content--center-left {
+  position: relative;
+  z-index: 3;
+  padding: 28px;
+  color: #111;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Headline / label */
+.card--yellow .card__label {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 6px 0;
+  color: #111;
+}
+
+/* Big headline / numeric value */
+.card--yellow .card__headline {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 84px;       /* as provided */
+  line-height: 0.95;
+  font-weight: 800;
+  margin: 0;
+  color: #121212;
+  letter-spacing: -0.02em;
+}
+
+/* Subtitle / small paragraph */
+.card--yellow .card__sub {
+  margin-top: 8px;
+  color: rgba(34,34,34,0.85);
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 260px;
+}
+
+/* Badge — top left overflow */
+.badge {
+  position: absolute;
+  top: -20px; /* overlaps outside the card */
+  left: -20px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 24px rgba(9,30,66,0.18);
+  z-index: 10; /* above card */
+}
+
+
+.badge__inner {
+  width: 56px;
+  height: 56px;
+  background: #010205;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge__icon {
+  width: 28px;
+  height: 28px;
+  color: #00E1A8;
+}
+
+
+/* Decorative circle bottom-right (soft yellow glow) */
+/* Yellow circle decorative element */
+.card__decor-circle {
+  position: absolute;
+  right: -36px;
+  bottom: -48px; /* lowered so it's mostly inside the card */
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  background: rgba(255, 220, 105, 0.45);
+  filter: blur(0.2px);
+  pointer-events: none;
+  z-index: 2; /* below content but above base yellow panel */
+}
+/* Small dark circular decoration (inner group) */
+.card--yellow .card__small-circle {
+  position: absolute;
+  left: 211.57px; /* from spec container left/top */
+  top: 176.89px;
+  width: 192px;
+  height: 192px;
+  background: rgba(255,238,133,0.30); /* soft yellow, 30% */
+  border-radius: 9999px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Small rounded dark circle (the large black circular shadow in top-left group) */
+.card--yellow .card__dark-spot {
+  position: absolute;
+  left: -15.63px;
+  top: -35.44px;
+  width: 112.56px;
+  height: 112.56px;
+  border-radius: 999px;
+  background: #010205;
+  box-shadow: 0 31.3468px 52.7196px -7.12426px rgba(0, 0, 0, 0.44);
+  z-index: 5;
+}
+
+/* Trending vector decorations (use SVGs positioned inside markup) */
+.card__vector,
+.card__vector--alt {
+  position: absolute;
+  z-index: 6;
+  pointer-events: none;
+  stroke: #00D492;
+  stroke-width: 4px;
+  fill: none;
+}
+
+/* Example precise placements (adjust if you use actual SVGs) */
+.card__vector { left: calc(4.17%); right: calc(4.17%); top: 25%; bottom: 25%; }
+.card__vector--alt { left: 70.83%; right: 4.17%; top: 25%; bottom: 50%; }
+
+/* Avatars row for dark cards left in your CSS — keep consistent sizing if reused */
+.card__avatars {
+  position: absolute;
+  left: 28px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 11;
+  padding-bottom: 30px;
+}
+
+/* Make numbers and small labels crisp */
+.big-number {
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 0.9;
+  color: #fff;
+}
+.big-plus {
+  font-size: 56px;
+  color: #fec42c;
+  font-weight: 800;
+}
+
+/* Small responsive shrink: scale card on narrow screens */
+@media (max-width: 420px) {
+  .card--yellow {
+    transform: scale(0.9);
+    transform-origin: top left;
+  }
+  .card--yellow .card__headline { font-size: 64px; line-height: 0.95; }
+}
+
+/* =========================
+   White Volume Card — pixel-accurate
+   Paste after your existing .card--white rules
+   ========================= */
+
+/* Outer wrapper card (frame 746 style) */
+.card--white {
+  position: relative;
+  width: 378px;                 /* matches spec */
+  height: 333px;
+  box-sizing: border-box;
+  padding: 16px;
+  background: #F9F9F9;
+  border: 0.739558px solid #CAD3FF;
+  border-radius: 29.5823px;
+  box-shadow:
+    0 0 0 1.61652px rgba(14,63,126,0.04),
+    0 1.61652px 1.61652px -0.80826px rgba(42,51,69,0.04),
+    0 4.84956px 4.84956px -2.42478px rgba(42,51,70,0.04),
+    0 9.69912px 9.69912px -4.84956px rgba(42,51,70,0.04),
+    0 19.3982px 19.3982px -9.69912px rgba(14,63,126,0.04),
+    0 38.7965px 38.7965px -19.3982px rgba(14,63,126,0.04);
+  backdrop-filter: blur(16.1652px);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Inner white card (card content area) */
+.card--white .card-inner {
+  position: relative;
+  width: 346px;                 /* inner width from spec */
+  height: 301px;
+  background: #FFFFFF;
+  border-radius: 24.0356px;
+  box-sizing: border-box;
+  padding: 20px 0;              /* matches your "padding: 12px 0px" */
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+/* Top-left content group (Frame 2147207740) */
+.card--white .card__content--top-left {
+  position: absolute;
+  left: 18.23px;
+  margin-top: 20px;
+  top: 12px;
+  width: 164px;
+  height: 95.21px;
+  display: flex;
+  flex-direction: column;
+  gap: 7.21px;
+  box-sizing: border-box;
+}
+
+/* "Total Volume" label */
+.card--white .card__content--top-left .muted {
+  font-family: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;             /* spec */
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.174125px;
+  color: #121212;
+  margin: 0;
+}
+
+/* Big headline $130.80M */
+.card--white .card__content--top-left .card__headline--large {
+  font-family: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 36px;             /* spec */
+  line-height: 40px;
+  font-weight: 700;
+  color: #121212;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* Percent badge (▲ 810%) */
+.card--white .badge-small {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  background: rgba(0,122,255,0.12); /* #007AFF 12% */
+  color: #0b7bff;
+  padding: 6px 12px;
+  border-radius: 6.96502px;
+  font-weight: 600;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+/* small triangle (if used) */
+.card--white .badge-small .triangle {
+  width: 5.57px;
+  height: 4.18px;
+  background: #ffffff;
+  border-radius: 0.696502px;
+  display: inline-block;
+}
+
+/* Chart group container exactly positioned (Group 224) */
+.card--white .chart-wrap {
+  position: absolute;
+  left: 0;
+  top: 167.21px;
+  width: 346px;
+  height: 108.16px;
+  box-sizing: border-box;
+}
+
+/* Vector gradient fill (the blue area under the curve) */
+.card--white .chart-wrap .chart-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 108.16px;
+  background: linear-gradient(182.46deg, #007AFF -17.04%, rgba(0,122,255,0) 97.72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dashed lines - exact positions from spec */
+/* Note: dashed stroke 0.696502px */
+.card--white .chart-wrap .dash-line {
+  position: absolute;
+  left: calc(5.24%);           /* match left offset in spec */
+  right: calc(42.47%);         /* right offset as spec for first line */
+  border-top: 0.696502px dashed #767676;
+  box-sizing: border-box;
+}
+
+/* first dashed at top line */
+.card--white .chart-wrap .dash-line.line-1 {
+  top: calc(74.19%);           /* relative to chart-wrap */
+  transform: translateY(-50%); /* keep crisp placement */
+}
+
+/* second dashed line */
+.card--white .chart-wrap .dash-line.line-2 {
+  top: calc(64.94%);
+  right: calc(14.89%);         /* different right offset per spec */
+}
+
+/* third dashed line */
+.card--white .chart-wrap .dash-line.line-3 {
+  top: calc(83.45%);
+  right: calc(72.65%);
+}
+
+/* Chart area bottom padding and svg fill */
+.card--white .chart {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  padding: 0 22px;
+  height: 160px;
+  display: flex;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+/* ensure svg fills container */
+.card--white .chart__svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Tiny accessibility and crispness tweaks */
+.card--white .card__label,
+.card--white .muted { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+.card--white .card__headline, .card--white .big-number { font-family: 'Inter', 'Segoe UI', Roboto, sans-serif; }
+
+/* Media tweaks remain unchanged */
+@media (max-width: 1200px) {
+  .card--white { width: 320px; }
+  .card--white .card-inner { width: 320px; }
+}
+

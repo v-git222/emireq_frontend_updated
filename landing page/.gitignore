@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Distribution zip
+emireq-landing-page-dist.zip
+.vercel
