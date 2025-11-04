@@ -1,35 +1,64 @@
+:root {
+  --artboard: 1440;
+
+  /* Paddings */
+  --nav-padding-desktop: 80px;
+  --nav-padding-desktop-rem: 5rem;
+  --nav-padding-min: 0.5rem;
+  --nav-padding-pref-vw: calc((80 / var(--artboard)) * 100vw);
+  --nav-padding-max: 5rem;
+
+  /* Gaps */
+  --nav-gap-action-min: 0.5rem;
+  --nav-gap-action-pref-vw: calc((16 / var(--artboard)) * 100vw);
+  --nav-gap-action-max: 1rem;
+  --nav-gap-action: clamp(var(--nav-gap-action-min), var(--nav-gap-action-pref-vw), var(--nav-gap-action-max));
+  --nav-gap-links: calc(var(--nav-gap-action) * 2);
+}
+
 /* ====== Root Navigation Styles ====== */
 .glass-nav {
-  width: auto;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(6px);
-  border: 0.8px solid rgba(255,255,255,0.2);
-  box-shadow: 0 8px 24px rgba(67,83,96,0.25);
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(0.375rem);
+  /* border: 0.05rem solid rgba(255, 255, 255, 0.2); */
+  /* box-shadow: 0 0.5rem 1.5rem rgba(67, 83, 96, 0.25); */
   position: sticky;
-  /* top: 1px; */
-  height: 50px;
+  top: 0;
   z-index: 1000;
   isolation: isolate;
+  box-sizing: border-box;
+
+  /* absolutely kill any overflow */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* ====== Inner Container ====== */
 .nav-container {
-  max-width: 1440px;
-  margin: 0 auto;
-  margin-top: 10px;
-  padding: 10px 80px; /* reduced height by 5px */
+  /* remove fixed max-width — use relative centering instead */
+  width: min(100%, 1440px);
+  margin-inline: auto;
+
+  margin-top: 0.625rem;
+  padding-inline: clamp(var(--nav-padding-min), var(--nav-padding-pref-vw), var(--nav-padding-max));
+  padding-block: 0.625rem;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
   box-sizing: border-box;
-  height: 12px;
- 
+
+  /* prevent flex overflow */
+  overflow-x: hidden;
 }
 
 /* ====== Logo ====== */
 .nav-logo img {
-  height: 40px;
+  height: 2.5rem;
   width: auto;
+  max-height: 3rem;
   display: block;
 }
 
@@ -37,22 +66,23 @@
 .nav-links ul {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: var(--nav-gap-links);
   list-style: none;
   margin: 0;
   padding: 0;
+  flex-wrap: nowrap;
 }
 
 .nav-links a {
   font-family: "DM Sans", sans-serif;
-  font-size: 17px; /* increased by 1px */
-  font-weight: 500; /* semi-bold, half pixel less in thickness than 700 */
+  font-size: 1.0625rem;
+  font-weight: 500;
   line-height: 1.45;
   color: #121212;
   text-decoration: none;
   transition: opacity 0.15s ease;
+  white-space: nowrap; /* prevent wrapping that causes width jumps */
 }
-
 .nav-links a:hover {
   opacity: 0.8;
 }
@@ -61,80 +91,94 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: var(--nav-gap-action);
+  flex-shrink: 0;
 }
 
+/* Buttons */
 .btn-outline,
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: "DM Sans", sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
-  padding: 8px 24px;
-  border-radius: 12px;
+
+  padding: 0.5rem clamp(0.75rem, calc((24 / var(--artboard)) * 100vw), 1.5rem);
+  border-radius: 0.75rem;
   text-decoration: none;
-  transition: all 0.25s ease; /* smooth hover animation */
+  transition: all 0.25s ease;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-/* Outline Button (white background by default) */
 .btn-outline {
-  border: 1px solid #C1C1C1;
+  border: 0.0625rem solid #c1c1c1;
   color: #090909;
   background: transparent;
 }
-
-/* Hover → invert to blue */
 .btn-outline:hover {
-  background: #152B5A;
-  color: #ffffff;
-  border-color: #152B5A;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  background: #152b5a;
+  color: #fff;
+  border-color: #152b5a;
+  box-shadow: 0 0.14vw 0.42vw rgba(0, 0, 0, 0.08);
 }
 
-/* Filled Button (blue background by default) */
 .btn-primary {
-  background: #152B5A;
-  color: #ffffff;
-  border: 1px solid #152B5A;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  background: #152b5a;
+  color: #fff;
+  border: 0.0625rem solid #152b5a;
+  box-shadow: 0 0.14vw 0.42vw rgba(0, 0, 0, 0.05);
 }
-
-/* Hover → invert to white */
 .btn-primary:hover {
-  background: #ffffff;
-  color: #152B5A;
-  border-color: #152B5A;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  color: #152b5a;
+  border-color: #152b5a;
+  box-shadow: 0 0.14vw 0.42vw rgba(0, 0, 0, 0.08);
 }
-
-/* Optional: active (click) states for both */
 .btn-outline:active,
 .btn-primary:active {
-  transform: translateY(1px);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transform: translateY(0.0625rem);
 }
 
-/* ====== Responsive (optional) ====== */
-@media (max-width: 1024px) {
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
   .nav-container {
-    padding: 24px 40px;
+    padding-inline: clamp(0.375rem, 3vw, 1.5rem);
+  }
+
+  .nav-actions {
+    gap: clamp(0.375rem, 1.1vw, 0.9rem);
+  }
+
+  .btn-outline,
+  .btn-primary {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.95rem;
+  }
+
+  .nav-logo img {
+    max-height: 2.25rem;
+  }
+}
+
+@media (min-width: 269px) and (max-width: 1440px) {
+  .nav-container {
+    padding-inline: clamp(0.75rem, calc((40 / var(--artboard)) * 100vw), 2.5rem);
   }
 
   .nav-links ul {
-    gap: 24px;
-  }
-
-  .nav-actions a {
-    padding: 6px 20px;
+    gap: calc(var(--nav-gap-action) * 1.5);
   }
 }
 
-@media (max-width: 768px) {
-  .nav-links {
-    display: none; /* hide links for mobile */
+@media (min-width: 369px) {
+  .nav-container {
+    padding-inline: clamp(1rem, var(--nav-padding-pref-vw), var(--nav-padding-max));
   }
 }
-

@@ -1,6 +1,6 @@
 // src/components/NewsLetterCTA.jsx
 import React, { useState } from "react";
-import "./NewsletterCTA.css";
+import "./NewsLetterCTA.css";
 
 /**
  * NewsletterCTA
@@ -10,6 +10,7 @@ import "./NewsletterCTA.css";
 export default function NewsletterCTA({ onSubscribe, illustrationSrc = null }) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
 
   const validateEmail = (value) => {
     // simple, adequate validation

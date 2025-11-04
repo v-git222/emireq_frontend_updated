@@ -1,43 +1,178 @@
 /* CategoryGrid.css — merged final version */
+:root{
+  /* tweak tokens to taste */
+  --cg-frame-max-w: 1440px;
+  --cg-frame-padding-block: clamp(1rem, 3.5vw, 3.375rem); /* ~16px — 54px */
+  --cg-frame-padding-inline: clamp(1rem, 6vw, 4rem);      /* more horizontal breathing */
+  --cg-frame-gap: clamp(0.75rem, 2.2vw, 1.5rem);         /* ~12px — 24px */
+}
 
-/* Frame / Outer container */
-.cg-frame{
+/* Frame / Outer container — responsive */
+.cg-frame {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 54px;
-  gap: 24px;
+  padding-block: var(--cg-frame-padding-block);   /* top/bottom */
+  padding-inline: var(--cg-frame-padding-inline); /* left/right */
+  gap: var(--cg-frame-gap);
   isolation: isolate;
+
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--cg-frame-max-w);
+  margin: 0 auto;
+top: -5rem;
   box-sizing: border-box;
   position: relative;
   background: #FFFFFF;
-  margin: 0 auto;
 }
 
+/* Small-screen adjustments */
+@media (max-width: 640px) {
+  .cg-frame {
+    /* keep content readable and avoid cramped edges */
+    padding-block: clamp(0.75rem, 4vh, 1.25rem);
+    padding-inline: clamp(0.75rem, 6vw, 1rem);
+    gap: 0.75rem;
+    align-items: stretch; /* make children span full width on narrow screens */
+  }
+}
+
+/* Optional: better safe-area handling for iOS notch */
+@supports(padding: max(0px)) {
+  .cg-frame {
+    padding-inline: max(env(safe-area-inset-left), var(--cg-frame-padding-inline));
+    padding-inline: max(env(safe-area-inset-right), var(--cg-frame-padding-inline));
+  }
+}
+
+.avatar-img-purple {
+  position: relative;
+  width: clamp(2rem, 3vw, 2.5rem); /* scales between ~32px–40px */
+  top: clamp(-2rem, -3vw, -1.5rem); /* push slightly down from original */
+  left: clamp(26rem, 30vw, 32rem);  /* ~450px but responsive */
+  transform: translateX(-0.1rem);   /* nudge 0.1rem left */
+  z-index: 10; /* keeps it visible above backgrounds if needed */
+}
+
+.avatar-img-purple img {
+  position: relative;                 /* allows movement */
+  width: clamp(10rem, 15vw, 12.5rem); /* responsive width (160–200px) */
+  height: auto;
+  transform: scaleX(-1);              /* keep horizontal flip */
+  top: clamp(0.5rem, 5vw, 10rem);      /* move image slightly down */
+  left: clamp(-0.5rem, 4vw, 5rem);  /* move image slightly left */
+  transition: all 0.3s ease;          /* smooth movement if adjusted dynamically */
+  z-index: 10;                        /* ensures visibility above backgrounds */
+}
+
+/* Optional: fine-tune for smaller screens */
+@media (max-width: 768px) {
+  .avatar-img-purple img {
+    top: 0.25rem;
+    left: -0.25rem;
+    width: clamp(8rem, 25vw, 10rem);  /* scale down gracefully */
+  }
+}
+
+
+/* Adjust positioning for tablets and mobile */
+@media (max-width: 1024px) {
+  .avatar-img-purple {
+    left: clamp(18rem, 25vw, 24rem);
+    top: clamp(-1rem, -2vw, -0.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .avatar-img-purple {
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, 0.5rem) scale(0.9);
+  }
+  .avatar-img-purple img {
+    width: clamp(8rem, 25vw, 10rem);
+  }
+}
+
+
+.avatar-img-yellow{
+ position: relative;
+  width: 40px;          /* reduced size */
+  top: 550px;  
+  left: 600px;
+}
+.avatar-img-yellow img{
+   position: relative;
+  width: 300px; 
+;
+  height: 100px;
+}
 /* Heading area - moved left */
-.cg-heading-wrap{
+:root{
+  /* tweak these if you want a stronger or weaker nudge */
+  --cg-heading-wrap-mt-min: -1.5rem;   /* ~ -24px — max negative on very wide screens */
+  --cg-heading-wrap-mt-fluid: -0.97vw; /* fluid preferred value */
+  --cg-heading-wrap-mt-max: -0.5rem;   /* ~ -8px — least negative on tiny screens */
+
+  --cg-heading-horizontal-padding: clamp(0.75rem, 3.5vw, 2rem); /* safe breathing room */
+  --cg-heading-gap: 0.5rem;
+}
+
+:root {
+  /* 20px spacing token */
+  --cg-gap-20: 1.25rem; /* 20px / 16 = 1.25rem */
+}
+
+/* Responsive heading wrapper */
+.cg-heading-wrap {
   width: 100%;
-  display:flex;
-  margin-top: -14px;
-  justify-content:flex-start;
-  align-items:center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;   /* left align on desktop */
+  align-items: center;
+  gap: var(--cg-heading-gap);
+  padding-inline: var(--cg-heading-horizontal-padding);
+  box-sizing: border-box;
+
+  /* responsive negative offset: keeps the same visual nudge but scales */
+  margin-top: clamp(
+    var(--cg-heading-wrap-mt-min),
+    var(--cg-heading-wrap-mt-fluid),
+    var(--cg-heading-wrap-mt-max)
+  );
 }
-.cg-heading{
+
+/* Small-screen behaviour: center the heading, reduce offset */
+@media (max-width: 640px) {
+  .cg-heading-wrap {
+    justify-content: center; /* center on phones for better layout */
+    gap: 0.375rem;
+    padding-inline: clamp(0.5rem, 6vw, 1rem);
+    margin-top: clamp(-1rem, -1.8vh, -0.4rem); /* slightly different, tuned for phones */
+  }
+}
+
+/* If you need the heading to remain left-aligned on small screens, change justify-content to flex-start above. */
+/* Heading — remove the old top/margin hacks first! */
+.cg-heading {
   font-family: 'URW Geometric','DM Sans', system-ui, sans-serif;
-  font-weight:700;
-  font-size:32px;
-  line-height:38px;
-  color:#43536D;
-  margin: 40px;
-  margin-left: -4px;
+  font-weight: 700;
+  font-size: 2rem;        /* 32px */
+  line-height: 2.375rem;  /* 38px */
+  color: #43536D;
+  margin: 2rem 0 1.25rem 0; /* added top margin to move it down */
+  position: relative;
+  padding-inline: 0.25rem;
+  top: 12rem;
 }
+
 
 .cg-grid-wrap {
   position: relative;
   width: 100%;
-  min-height: 780px; /* adjust to match your grid / screenshot height */
+  min-height: 780px; 
+
+  ;/* adjust to match your grid / screenshot height */
 }
 
 /* Grid: 4-column desktop */
@@ -52,17 +187,18 @@
   align-items: start;
   padding: 0 8px;
   margin: 0;
+  position: relative;
+  top: -40px;
 }
 
 /* ---------- Overlay (inline) ---------- */
 
 /* overlay container covers the positioned parent (.cg-grid-wrap) */
+/* Ensure overlay container sits above grid but doesn't push content */
 .overlay-container {
-  position: absolute; /* must be inside .cg-grid-wrap which is relative */
-  inset: 0;           /* top:0; right:0; bottom:0; left:0; */
-  z-index: 9999;
-  pointer-events: none; /* decorative elements pass interactions through */
-  font-family: "DM Sans", system-ui, sans-serif;
+  position: absolute; /* already set in your file */
+  inset: 0;
+  pointer-events: none;
 }
 
 /* Base decorative overlay box */
@@ -88,8 +224,16 @@
   transform: none;
 }
 /* 
-/* Purple box — top-right */
-
+/* Purple overlay box (example) */
+.cg-overlay-box--purple {
+  background: linear-gradient(180deg,#8B5CF6,#7C3AED);
+  color: white;
+  left: 60%;                   /* adjust to place horizontally */
+  top: calc(var(--cg-gap-20) + rem); /* 20px + extra 32px gap from heading */
+  transform: translateX(-50%);
+  pointer-events: auto;        /* if you want it clickable */
+  z-index: 10000;
+}
 /* Yellow box — bottom center (positive bottom so visible) */
 .cg-overlay-box--yellow {
   background: linear-gradient(180deg, #FDD56A, #FDC700);
@@ -111,7 +255,15 @@
   pointer-events: auto; /* enable clicks */
   z-index: 10001;
 }
-
+.cg-overlay-arrow {
+  position: absolute;
+  left: calc(60% - 2.25rem);   /* align with box; tweak as needed */
+  top: calc(var(--cg-gap-20) + 0.25rem);
+  width: 6rem;
+  height: auto;
+  pointer-events: none;
+  z-index: 9999;
+}
 .overlay-clear {
   background: transparent;
   border: none;

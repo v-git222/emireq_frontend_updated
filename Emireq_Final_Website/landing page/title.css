@@ -1,5 +1,5 @@
 /* Title container (matches the Figma spec provided) */
-.hero-title {
+/* .hero-title {
   box-sizing: border-box;
   width: 958px;
   height: 156px;
@@ -16,18 +16,33 @@
   margin: 0 auto;
   padding: 0;
   white-space: pre-wrap;
+} */
+ .hero-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* 958px design width -> ~66.5% of a 1440px artboard */
+  width: 66.5%;
+  margin: 0 auto;
+  gap: 1.6%; /* ~24px/1440 */
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0 2%; /* small breathing room */
 }
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
   .hero-title {
     width: min(92%, 958px);
     font-size: calc(80px * 0.8);
     line-height: calc(78px * 0.8);
   }
-}
+} */
 
 /* Wrapper for title + subtitle */
-.hero-wrapper {
+/* .hero-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,10 +51,29 @@
   width: min(960px, 92%);
   margin: 0 auto;
   box-sizing: border-box;
+} */
+.hero-title {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-family: "URW Geometric", "Inter", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 5.6vw; /* roughly scales around 80px on 1440px screen */
+  line-height: 5.4vw; /* around 78px originally */
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: #2f2f33;
+  display: block;
+  width: 100%;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* Subtitle styling */
-.hero-subtitle {
+/* .hero-subtitle {
   font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -52,13 +86,59 @@
   max-width: 720px;
   width: 100%;
   white-space: normal;
+} */
+.hero-subtitle {
+  font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 1.4vw; /* ~20px on 1440px */
+  /* line-height: 1.2vw !important; ~28px on 1440px */
+  text-align: center;
+  color: #43536d;
+  margin: 0;
+  padding: 0;
+  max-width: 50%; /* 720px/1440 = 50% */
+  width: 100%;
+  white-space: normal;
 }
-
-@media (max-width: 768px) {
-  .hero-subtitle {
+/* @media (max-width: 768px) { */
+  /* .hero-subtitle {
     font-size: 18px;
     line-height: 26px;
     max-width: 90%;
   }
 }
+ */
+@media (max-width: 1440px) {
+  .hero-wrapper {
+    width: 90%;
+    gap: 5.5%;
+  }
 
+  .hero-title {
+    font-size: 6vw;
+    line-height: 6.3vw;
+  }
+
+  .hero-subtitle {
+    font-size: 1.8vw;
+    line-height: 3vw;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-wrapper {
+    width: 90%;
+  }
+
+  .hero-title {
+    font-size: 7vw;
+    line-height: 7.2vw;
+  }
+
+  .hero-subtitle {
+    font-size: 3vw;
+    line-height: 4vw;
+    max-width: 95%;
+  }
+}

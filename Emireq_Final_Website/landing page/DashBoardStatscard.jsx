@@ -1,10 +1,27 @@
 import React from "react";
 import "./DashboardStatsCard.css";
 
+const FALLBACK_SVG =
+  'data:image/svg+xml;utf8,' +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none">
+       <rect width="24" height="24" rx="6" fill="#E6EEF9"/>
+       <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-6 2-6 4v1h12v-1c0-2-2-4-6-4z" fill="#3B5BDB"/>
+     </svg>`
+  );
+
 export default function DashboardStatsCard() {
+  // small helper to avoid repeated inline functions in markup
+  const handleImgError = (e) => {
+    // prevent infinite loop if fallback also fails
+    if (e?.target?.dataset?.errored) return;
+    e.target.dataset.errored = "true";
+    e.target.src = FALLBACK_SVG;
+  };
+
   return (
     <div className="dashboard-container" role="region" aria-label="dashboard stats">
-      {/* Card 1 - Yellow ROI (wrapped so badge can overflow cleanly) */}
+      {/* Card 1 - Yellow ROI */}
       <div className="card-wrapper">
         <section className="card card--yellow" aria-labelledby="roi-title">
           <div className="card__content card__content--center-left">
@@ -13,24 +30,21 @@ export default function DashboardStatsCard() {
             <div className="card__sub">Above market avg</div>
           </div>
 
-          {/* bottom decorative circle stays inside and will be clipped by the card */}
-          <div className="card__decor-circle" aria-hidden="true"></div>
+          <div className="card__decor-circle" aria-hidden="true" />
         </section>
 
-        {/* badge placed as sibling to the card so it can overflow the rounded corner */}
         <div className="badge" aria-hidden="true">
           <div className="badge__inner">
             <svg viewBox="0 0 24 24" className="badge__icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-              <path d="M4 14L10 8L14 12L20 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-              <path d="M20 6V12H14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+              <path d="M4 14L10 8L14 12L20 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              <path d="M20 6V12H14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" fill="none" />
             </svg>
           </div>
         </div>
       </div>
 
-      {/* Card 2 - Dark center (updated markup) */}
+      {/* Card 2 - Dark center */}
       <section className="card card--dark" aria-labelledby="trusted-title">
-        {/* Background art div — CSS will apply the transformed image here */}
         <div className="bg-art" aria-hidden="true" />
 
         <div className="stat-headline">
@@ -44,12 +58,44 @@ export default function DashboardStatsCard() {
         </div>
 
         <div className="stat-avatars" aria-hidden="true">
-          {/* Dummy avatars from Unsplash — replace with real images in production */}
-          <img className="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80&auto=format&fit=crop" alt="Investor 1" />
-          <img className="avatar" src="https://images.unsplash.com/photo-1545996124-6b3c9f4ea6eb?w=800&q=80&auto=format&fit=crop" alt="Investor 2" />
-          <img className="avatar" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800&q=80&auto=format&fit=crop" alt="Investor 3" />
-          <img className="avatar" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=800&q=80&auto=format&fit=crop" alt="Investor 4" />
-          <div className="avatar-plus" aria-hidden="true">+</div>
+          {/* Add width/height, object-fit, loading lazy, and onError fallback */}
+          <img
+            className="avatar"
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80&auto=format&fit=crop"
+            alt="Investor 1"
+            width="40"
+            height="40"
+            loading="lazy"
+            onError={handleImgError}
+          />
+          <img
+            className="avatar"
+            src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80&auto=format&fit=crop"
+            alt="Investor 2"
+            width="40"
+            height="40"
+            loading="lazy"
+            onError={handleImgError}
+          />
+          <img
+            className="avatar"
+            src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=800&q=80&auto=format&fit=crop"
+            alt="Investor 3"
+            width="40"
+            height="40"
+            loading="lazy"
+            onError={handleImgError}
+          />
+          <img
+            className="avatar"
+            src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=800&q=80&auto=format&fit=crop"
+            alt="Investor 4"
+            width="40"
+            height="40"
+            loading="lazy"
+            onError={handleImgError}
+          />
+          <div className="avatar-plus" aria-hidden="true">+{/* intentionally empty for visual */}</div>
         </div>
       </section>
 

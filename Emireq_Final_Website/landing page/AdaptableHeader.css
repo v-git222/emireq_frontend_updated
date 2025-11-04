@@ -157,37 +157,7 @@
   height: 200px;
 }
 
-/* Fallback decorative card */
-/* .ah-card {
-  width: 420px;
-  height: 160px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #F4F7FB 0%, #FFFFFF 100%);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(16, 24, 40, 0.06);
-} */
-/* 
-.ah-card-art {
-  width: 380px;
-  height: 120px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #E3F2FF 0%, #FFF6E5 100%);
-} */
 
-/* .ah-card-shadow {
-  position: absolute;
-  right: -30px;
-  top: 30px;
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: rgba(19, 43, 90, 0.06);
-  filter: blur(18px);
-} */
 
 /* Image version (if prop image passed) */
 .ah-hero-image {

@@ -1,305 +1,556 @@
-:root {
-  --primary: #152B5A;
-  --muted: #43536D;
-  --title-color: #2F2F33;
-  --search-border-alt: #F5E18A; /* yellow border */
-  --bg: #f9fbfd;
-  --button-bg: #FFFFFF;
-  --button-text: #2F2F33;
-  --button-border: #E4E7EC;
-  --button-blue-bg: #152B5A;
-  --button-blue-text: #FFFFFF;
-  --button-blue-border: #FFFFFF;
-}
+  :root{
+    --primary: #152B5A;
+    --muted: #43536D;
+    --title-color: #2F2F33;
+    --search-border-alt: #F5E18A;
+    --bg: #f9fbfd;
+    --button-bg: #FFFFFF;
+    --button-text: #2F2F33;
+    --button-border: #E4E7EC;
+    --button-blue-bg: #152B5A;
+    --button-blue-text: #FFFFFF;
 
-/* Page container */
-.hero {
-  min-width: 0;
-  padding: 28px 24px 48px;
-  background: var(--bg);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.hero__buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px; /* ← Adjust this value for spacing between buttons */
-  flex-wrap: wrap; /* allows wrapping on smaller screens */
-  margin-top: 32px; /* optional: add space above row */
-}
-/* Controls wrapper */
-.hero__controls {
+    /* design constants */
+    --artboard: 1440;
+
+    /* useful clamps derived from original px values */
+    --hero-pad-top: 1.75rem;                  /* 28px / 16 */
+    --hero-pad-x: 1.5rem;                     /* 24px / 16 */
+    --hero-pad-bottom: 3rem;                  /* 48px / 16 */
+
+    --btn-gap-pref: calc((20 / var(--artboard)) * 100vw); /* responsive vw */
+    --btn-gap-min: 0.5rem;                    /* 8px */
+    --btn-gap-max: 1.25rem;                   /* 20px */
+
+    --controls-gap-pref: calc((40 / var(--artboard)) * 100vw);
+    --controls-gap-min: 1rem;
+    --controls-gap-max: 2.5rem;
+
+    --btn-pad-x-pref: calc((28 / var(--artboard)) * 100vw);
+    --btn-pad-x-min: 0.75rem;
+    --btn-pad-x-max: 1.75rem;
+
+    --btn-pad-y: 0.5rem;
+    --btn-height: 2.75rem;
+    --btn-radius: 0.75rem;
+    --btn-inline-gap: 0.625rem;
+
+    /* Searchbar sizing helpers (responsive) */
+    --searchbar-width-min: 24rem;                         /* 320px */
+    --searchbar-width-pref: calc((960 / var(--artboard)) * 100vw); /* vw pref */
+    --searchbar-width-max: 60rem;                         /* 960px -> 60rem */
+
+    /* trending card width */
+    --trending-card-max: 61.625rem; /* 986px /16 */
+  }
+
+  /* Page container */
+  .hero {
+    min-width: 0;
+    padding-top: var(--hero-pad-top);
+    padding-left: clamp(0.75rem, var(--hero-pad-x), 2rem);
+    padding-right: clamp(0.75rem, var(--hero-pad-x), 2rem);
+    padding-bottom: var(--hero-pad-bottom);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+  }
+
+  /* Hero buttons row */
+  .hero__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(var(--btn-gap-min), var(--btn-gap-pref), var(--btn-gap-max));
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    box-sizing: border-box;
+  }
+
+  /* Controls wrapper */
+  .hero__controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(var(--controls-gap-min), var(--controls-gap-pref), var(--controls-gap-max));
+    box-sizing: border-box;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--btn-inline-gap);
+    padding-top: var(--btn-pad-y);
+    padding-bottom: var(--btn-pad-y);
+    padding-left: clamp(var(--btn-pad-x-min), var(--btn-pad-x-pref), var(--btn-pad-x-max));
+    padding-right: clamp(var(--btn-pad-x-min), var(--btn-pad-x-pref), var(--btn-pad-x-max));
+    height: var(--btn-height);
+    border-radius: var(--btn-radius);
+    font-family: "DM Sans", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 220ms ease, color 220ms ease, box-shadow 220ms ease, transform 120ms ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn--primary { background: var(--button-blue-bg); color: var(--button-blue-text); border-color: var(--button-blue-border); }
+  .btn--outline { background: var(--button-bg); color: var(--button-text); border-color: var(--button-border); }
+
+  /* Shared responsive size constants */
+  :root {
+    --btn-icon-size: 1.125rem; /* 18px */
+    --btn-shadow-min: 0 0.125rem 0.625rem rgba(21,43,90,0.10);
+    --btn-shadow-hover: 0 0.375rem 1.125rem rgba(21,43,90,0.08);
+    --btn-shadow-toggle: 0 0.125rem 0.625rem rgba(44,63,96,0.04);
+    --btn-shadow-toggle-hover: 0 0.375rem 1.125rem rgba(21,43,90,0.12);
+    --btn-shadow-toggle-active: 0 0.5rem 1.625rem rgba(21,43,90,0.16);
+  }
+
+  /* Blue filled button */
+  .btn.btn--blue {
+    background: var(--button-blue-bg);
+    color: white;
+    border-color: var(--blue);
+    font-weight: 600;
+    box-shadow: var(--btn-shadow-min);
+    transition:
+      background-color 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      transform 120ms ease;
+    
+  }
+  .btn.btn--blue .btn__icon svg {
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+    stroke: white;
+    fill: none;
+    transition: stroke 220ms ease, fill 220ms ease;
+  }
+  .btn.btn--blue:hover,
+  .btn.btn--blue:focus {
+    background: var(--blue);
+    color: var(--text-dark);
+    border-color: var(--blue);
+    box-shadow: var(--btn-shadow-hover);
+    transform: translateY(-0.0625rem);
+  }
+  .btn.btn--blue:hover .btn__icon svg {
+    stroke: var(--blue) !important;
+    fill: var(--blue) !important;
+  }
+
+  /* Toggle / Outline button */
+  .btn.btn--toggle {
+    background: var(--white);
+    color: var(--text-dark);
+    border-color: var(--muted-border);
+    font-weight: 600;
+    box-shadow: var(--btn-shadow-toggle);
+    transition:
+      background-color 220ms ease,
+      color 220ms ease,
+      box-shadow 220ms ease,
+      transform 120ms ease;
+  }
+  .btn.btn--toggle .btn__icon svg {
+    width: var(--btn-icon-size);
+    height: var(--btn-icon-size);
+    stroke: currentColor;
+    fill: none;
+    transition: stroke 220ms ease, fill 220ms ease;
+  }
+  .btn.btn--toggle:hover,
+  .btn.btn--toggle:focus {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+    box-shadow: var(--btn-shadow-toggle-hover);
+    transform: translateY(-0.0625rem);
+  }
+  .btn.btn--toggle:hover .btn__icon svg {
+    stroke: var(--white) !important;
+    fill: var(--white) !important;
+  }
+  .btn.btn--toggle.active,
+  .btn.btn--toggle.is-active {
+    background: var(--blue) !important;
+    color: var(--white) !important;
+    border-color: var(--blue) !important;
+    box-shadow: var(--btn-shadow-toggle-active) !important;
+  }
+
+  /* Focus ring */
+  .btn:focus {
+    outline: 0.1875rem solid rgba(21,43,90,0.12); /* ~3px */
+    outline-offset: 0.125rem;
+  }
+
+  .btn .btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Responsive shadow/spacing */
+  @media (max-width: 768px) {
+    .btn.btn--blue,
+    .btn.btn--toggle {
+      box-shadow: 0 0.25rem 0.875rem rgba(21,43,90,0.08);
+    }
+  }
+  @media (max-width: 480px) {
+    .btn.btn--blue .btn__icon svg,
+    .btn.btn--toggle .btn__icon svg {
+      width: clamp(0.875rem, 3vw, 1.125rem);
+      height: clamp(0.875rem, 3vw, 1.125rem);
+    }
+  }
+
+  /* --- Search Bar --- */
+  .hero__searchbar-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative; /* keep popover relative here */
+    overflow: visible;
+  }
+  :root {
+    /* minimum: won't go below 520px on large phones / small tablets (or 92% of viewport if viewport smaller) */
+    --searchbar-width-min: clamp(320px, 28vw, 520px);
+
+    /* preferred fluid value: uses vw so it scales continuously instead of snapping */
+    --searchbar-width-pref: 60vw;
+
+    /* maximum: desktop target */
+    --searchbar-width-max: 960px;
+  }
+
+  .searchbar {
+    width: clamp(var(--searchbar-width-min), var(--searchbar-width-pref), var(--searchbar-width-max));
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    gap: 0.75rem;
+    height: 5rem;
+    border: 0.5rem solid var(--search-border-alt);
+    border-radius: 1rem;
+    box-shadow: 0 0.625rem 1.5rem rgba(67, 83, 96, 0.06);
+    position: relative;
+    background: #fff;
+
+    /* tiny animation so width change isn't visually jarring */
+    transition: width 240ms cubic-bezier(.22,.9,.36,1), padding 180ms ease;
+  }
+
+  /* --- Left side --- */
+  .searchbar__left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+/* ---------- Small screens: force stacked layout and stable dropdown ---------- */
+@media (max-width: 768px) {
+  /* Stack the entire searchbar vertically */
+  .searchbar {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    width: 94%;
+    max-width: var(--searchbar-width-max);
+    height: auto;
+    box-sizing: border-box;
+    transition: width 240ms cubic-bezier(.22,.9,.36,1), padding 180ms ease;
+  }
+.search-suggestions {
+  position: absolute;
+  top: 100%; /* directly below the input */
+  left: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 40px; /* spacing between buttons and search bar */
-}
-
-/* ====== Buttons: consistent sizes, shadows, and smooth inversion ====== */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 8px 28px;
-  height: 44px;
-  border-radius: 12px;
-  font-family: "DM Sans", Arial, sans-serif;
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  transition: background-color 220ms ease, color 220ms ease, box-shadow 220ms ease, transform 120ms ease;
-  box-sizing: border-box;
-  border: 1px solid transparent;
-}
-
-/* variables (fallback) */
-:root{
-  --blue: #152B5A;
-  --blue-dark-hover: #163059;
-  --white: #ffffff;
-  --muted-border: #E6EAF0; /* subtle light-gray border like screenshot */
-  --text-dark: #111827;
-}
-
-/* ==== Blue filled button (left) ==== */
-.btn.btn--blue {
-  background: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
-  box-shadow: 0 3px 10px rgba(21, 43, 90, 0.10);
-  font-weight: 600;
-}
-
-/* icon in blue button should use currentColor (or CSS fallback) */
-.btn.btn--blue .btn__icon svg { 
-  width: 18px; height: 18px;
-  stroke: currentColor; fill: none; 
-  transition: stroke 220ms ease, fill 220ms ease;
-}
-
-/* Hover: invert blue -> white bg / blue text */
-.btn.btn--blue:hover,
-.btn.btn--blue:focus {
-  background: var(--white);
-  color: var(--blue);
-  border-color: var(--blue);
-  box-shadow: 0 6px 18px rgba(21,43,90,0.08);
-  transform: translateY(-1px);
-}
-
-/* ensure icon color flips on hover (uses currentColor so no extra rules needed),
-   but include explicit rule if your SVG doesn't use currentColor */
-.btn.btn--blue:hover .btn__icon svg { stroke: var(--blue) !important; fill: var(--blue) !important; }
-
-/* ==== Toggle / Outline button (right) ==== */
-/* Matches screenshot: white bg, subtle border, bold dark text */
-.btn.btn--toggle {
-  background: var(--white);
-  color: var(--text-dark);
-  border-color: var(--muted-border);
-  box-shadow: 0 3px 10px rgba(44,63,96,0.04);
-  font-weight: 600;
-}
-
-/* icon in toggle uses currentColor */
-.btn.btn--toggle .btn__icon svg { 
-  width: 18px; height: 18px; 
-  stroke: currentColor; fill: none; 
-  transition: stroke 220ms ease, fill 220ms ease;
-}
-
-/* Hover: invert white -> blue bg / white text (same animation) */
-.btn.btn--toggle:hover,
-.btn.btn--toggle:focus {
-  background: var(--blue);
-  color: var(--white);
-  border-color: var(--blue);
-  box-shadow: 0 6px 18px rgba(21,43,90,0.12);
-  transform: translateY(-1px);
-}
-
-/* ensure icon flips on hover */
-.btn.btn--toggle:hover .btn__icon svg { stroke: var(--white) !important; fill: var(--white) !important; }
-
-/* Active/selected state for toggle remains blue (persisted) */
-.btn.btn--toggle.active,
-.btn.btn--toggle.is-active {
-  background: var(--blue) !important;
-  color: var(--white) !important;
-  border-color: var(--blue) !important;
-  box-shadow: 0 8px 26px rgba(21,43,90,0.16) !important;
-}
-
-/* Focus ring accessibility */
-.btn:focus {
-  outline: 3px solid rgba(21,43,90,0.12);
-  outline-offset: 2px;
-}
-
-/* Small responsive tweak so both buttons remain same height visually */
-.btn .btn__icon { display:inline-flex; align-items:center; justify-content:center; }
-
-
-/* --- Search Bar --- */
-.hero__searchbar-wrap {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.searchbar {
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  gap: 16px;
-  width: 960px;
-  height: 80px;
-  background: #FFFFFF;
-  border: 8px solid var(--search-border-alt);
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(67, 83, 96, 0.06);
-  position: relative; /* for proper z-index stacking of children */
-}
-
-/* Left: search icon + input */
-.searchbar__left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.searchbar__magnify {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
   background: #fff;
-  box-shadow: 0 6px 18px rgba(44, 63, 96, 0.04);
+  border: 1px solid var(--button-border, #e4e7ec);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.625rem 1.5rem rgba(44, 63, 96, 0.08);
+  margin-top: 0.25rem;
+  z-index: 10;
+}
+  /* Left section (input) first */
+  .searchbar__left {
+    order: 1;
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* Right section (dropdown + button) below input, stacked vertically */
+  .searchbar__right {
+    order: 2;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  /* Ensure the dropdown occupies full width and the pseudo-arrow stays positioned */
+  .searchbar .dropdown {
+    width: 100%;
+    min-width: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    margin: 0;
+    position: relative;
+    top: 1000px ;
+  }
+  .searchbar .dropdown__label {
+    width: 100%;
+    height: 2.75rem; /* comfortable touch target */
+  }
+  .searchbar .dropdown__select {
+    width: 100% !important;
+    min-width: 0;
+    padding-right: 2.25rem; /* keep arrow spacing */
+    box-sizing: border-box;
+  }
+
+  /* Make the search button full-width under the dropdown */
+  .btn--search {
+    width: 100%;
+    min-width: 0;
+    padding: 0.625rem 1rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
 
-.searchbar__input {
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  color: #2C3A50;
-  width: 100%;
-  outline: none;
+/* ---------- Very small phones: tighten spacing ---------- */
+@media (max-width: 480px) {
+  .searchbar {
+    width: 96%;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+  .searchbar__right {
+    gap: 0.5rem;
+  }
+  .searchbar .dropdown__select,
+  .btn--search {
+    width: 100%;
+  }
 }
 
-/* Right side: dropdown + search button */
-.searchbar__right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+  .searchbar__magnify {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    background: #fff;
+    box-shadow: 0 0.375rem 1.125rem rgba(44, 63, 96, 0.04);
+  }
 
-/* Dropdown styling — force white background and rounded corners inside yellow search frame */
+  .searchbar__input {
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #2C3A50;
+    width: 100%;
+    outline: none;
+  }
+
+  /* --- Right side --- */
+  .searchbar__right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+ /* --- Dropdown: centered, stable width, responsive --- */
 .searchbar .dropdown {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 105px;
-  height: 36px;
+  align-items: center;     /* vertically center inside the searchbar */
+  justify-content: center;
+  width: auto;             /* let it size to its content */
+  min-width: 6.25rem;      /* keep a sensible minimum (100px) */
   box-sizing: border-box;
-  z-index: 4; /* ensure it sits above the thick searchbar border */
-}
-
-.dropdown__label {
-  width: 100%;
-  height: 100%;
-  display: block;
-  position: relative;
   z-index: 4;
+  margin: 0;               /* remove unexpected offsets */
 }
 
-/* Make the select look like a standalone white control inside the searchbar */
-.searchbar .dropdown__select {
+/* label as positioning anchor for the custom arrow */
+.dropdown__label {
+  display: inline-block;
+  position: relative;
   width: 100%;
-  height: 36px;
-  padding: 8px 36px 8px 12px; /* extra right padding for the arrow */
-  border-radius: 12px;
+  height: 2.25rem;         /* match select height for vertical alignment */
+  vertical-align: middle;
+}
+
+/* select style — fixed height, stable padding and responsive width */
+.searchbar .dropdown__select {
+  width: 8.5rem;                       /* sensible default width on desktop */
+  max-width: 12rem;                    /* cap so it doesn't blow out */
+  min-width: 5.75rem;                  /* never smaller than ~92px */
+  height: 2.25rem;
+  padding: 0.5rem 2.25rem 0.5rem 0.75rem; /* keeps arrow space on the right */
+  border-radius: 0.75rem;
   background: #fff !important;
   color: var(--button-text) !important;
-  border: 1px solid var(--button-border) !important;
-  font-size: 14px;
+  border: 0.0625rem solid var(--button-border) !important;
+  font-size: 0.875rem;
   font-weight: 500;
   appearance: none;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(44, 63, 96, 0.06);
+  box-shadow: 0 0.1875rem 0.625rem rgba(44, 63, 96, 0.06);
+  box-sizing: border-box;
+  line-height: 1;                       /* ensure vertical centering of text */
 }
-
-/* Custom pseudo arrow (your previous arrow) */
+.dropdown select,
+.dropdown__select {
+  position: relative;
+  z-index: 5; /* keep the trigger above background elements */
+}
+/* keep the pseudo arrow in a consistent place relative to label */
 .searchbar .dropdown__label::after {
   content: "";
   position: absolute;
-  right: 12px;
+  right: 0.75rem;
   top: 50%;
   transform: translateY(-50%) rotate(45deg);
-  width: 8px;
-  height: 8px;
-  border-right: 2px solid rgba(47, 47, 51, 0.7);
-  border-bottom: 2px solid rgba(47, 47, 51, 0.7);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 0.125rem solid rgba(47, 47, 51, 0.7);
+  border-bottom: 0.125rem solid rgba(47, 47, 51, 0.7);
   pointer-events: none;
   z-index: 5;
 }
 
-/* Remove the native dropdown arrow in some browsers */
+/* remove IE native arrow where applicable */
 .searchbar .dropdown__select::-ms-expand { display: none; }
 
-/* Focus state for select */
+/* focus ring */
 .searchbar .dropdown__select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(21,43,90,0.08);
+  box-shadow: 0 0 0 0.1875rem rgba(21,43,90,0.08);
 }
 
-/* --- Search button (blue) --- */
-.btn--search {
-  padding: 10px 20px;
-  height: 40px;
-  min-width: 84px;
-  border-radius: 12px;
-  background: var(--primary);
-  color: #fff;
-  border: 1px solid var(--primary);
-  font-weight: 600;
-  box-shadow: 0 3px 10px rgba(44, 63, 96, 0.06);
-}
-.btn--search:hover {
-  background: #1b3578;
-  border-color: #1b3578;
-  box-shadow: 0 5px 14px rgba(44, 63, 96, 0.08);
-}
-/* Fix: ensure active (blue) button text is visible */
 
 
-/* Responsive */
-@media (max-width: 1100px) {
-  .searchbar { width: calc(100% - 48px); }
-}
 
+  /* if you want the search button to sit beside the select at small widths,
+     make the button shrinkable */
+  .btn--search {
+    flex: 0 0 auto;
+    min-width: 5.25rem;
+  }
+
+
+/* Very small phones: stack vertically */
 @media (max-width: 480px) {
-  .searchbar {
-    padding: 12px;
-    flex-direction: column;
-    gap: 12px;
-    height: auto;
+  .searchbar .dropdown {
+    width: 100%;
   }
   .searchbar__right {
-    width: 100%;
-    justify-content: space-between;
-    gap: 8px;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
   }
-  .searchbar .dropdown__select { width: 100%; }
+  .searchbar .dropdown__select,
+  .btn--search {
+    width: 100%;
+  }
 }
 
+.dropdown__menu {
+  position: absolute;
+  top: 100%; /* directly below select */
+  left: 0;
+  width: 100%; /* align with parent width */
+  background: #fff;
+  border: 1px solid var(--button-border);
+  border-radius: 0.5rem;
+  margin-top: 0.25rem;
+  box-shadow: 0 0.625rem 1.5rem rgba(44,63,96,0.08);
+  z-index: 10;
+}
+
+  /* --- Search button (blue) --- */
+  .btn--search {
+    padding: 0.625rem 1.25rem;
+    height: 2.5rem;
+    min-width: 5.25rem;
+    border-radius: 0.75rem;
+    background: var(--primary);
+    color: #fff;
+    border: 0.0625rem solid var(--primary);
+    font-weight: 600;
+    box-shadow: 0 0.1875rem 0.625rem rgba(44, 63, 96, 0.06);
+    transition: all 0.2s ease;
+  }
+  .btn--search:hover {
+    background: #1b3578;
+    border-color: #1b3578;
+    box-shadow: 0 0.3125rem 0.875rem rgba(44, 63, 96, 0.08);
+  }
+
+  /* Tablet and below — stack gracefully */
+  @media (max-width: 768px) {
+    .searchbar {
+      flex-wrap: wrap;
+      height: auto;
+      padding: 0.75rem 1rem;
+      width: 92%;
+    }
+    .searchbar__left,
+    .searchbar__right {
+      width: 100%;
+    }
+    .searchbar__input {
+      font-size: 0.95rem;
+    }
+    .searchbar__right {
+      justify-content: space-between;
+    }
+    .searchbar .dropdown__select {
+      flex: 1;
+    }
+    .btn--search {
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  /* Small phones */
+  @media (max-width: 480px) {
+    .searchbar {
+      width: 95%;
+      gap: 0.5rem;
+    }
+    .searchbar__right {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .searchbar .dropdown__select,
+    .btn--search {
+      width: 100%;
+    }
+  }

@@ -61,7 +61,14 @@ export default function CategoryGrid() {
       <div className="cg-heading-wrap">
         <h3 className="cg-heading">Pickup your Category to start</h3>
       </div>
+<div className="avatar-img-purple">
+  <img src="/ArrowPurple.png" alt="Arrow Purple" />
+</div>
+<div className="avatar-img-yellow">
+  <img src="/ArrowYellow.png" alt="Arrow Yellow" />
+</div>
 
+    
       <div className="cg-grid-wrap">
         <div className="cg-grid" role="list" aria-label="category list">
           {CATEGORY_META.map((c) => {

@@ -2,17 +2,34 @@
    Desktop-first sizing. Adjust tokens to suit your design system.
 */
 
-/* Container */
+/* Responsive dashboard container */
 .dashboard-container {
-  width: 1150px;
-  height: 333px;
-  display: flex;
-  gap: 24px;
+  /* fluid width: min 20rem (320px), preferred 95vw, max 71.875rem (1150px) */
+  width: clamp(20rem, 95vw, 71.875rem);
+  max-width: 71.875rem;            /* 1150px */
   margin: 0 auto;
-  align-items: center;
   box-sizing: border-box;
-  /* optional: enhance background contrast for preview */
-  /* background: #fafafa; */
+
+  /* height becomes adaptive — keep a comfortable minimum but allow growth */
+  min-height: 20.8125rem;          /* 333px -> 20.8125rem */
+  height: auto;
+
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;                 /* lets cards wrap to new row on narrow screens */
+  gap: 1.5rem;                     /* 24px */
+  align-items: stretch;            /* stretch cards vertically for consistent heights */
+  justify-content: center;         /* center cards when wrapped */
+
+  /* breathing room on very small screens */
+  padding: 1rem;                   /* prevents edge collisions on phones */
+}
+
+/* Optional: helper utility to make each child card flexible while retaining intended sizes */
+.dashboard-container > * {
+  flex: 0 1 clamp(18rem, 30%, 23.625rem);
+  /* this makes each card prefer a width (approx your 347/378px cards),
+     but shrink gracefully and wrap when needed */
 }
 
 /* Shared card base */

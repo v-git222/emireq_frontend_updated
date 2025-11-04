@@ -1,7 +1,7 @@
 // 
 import React from "react";
 import "./header.css";
-// import logo from "../assets/logo.svg";
+import logo from "../landing page/assets/logo.png"
 
 export default function Header() {
   return (
@@ -9,7 +9,7 @@ export default function Header() {
       <div className="nav-container">
         {/* Left: Logo */}
         <a href="/" className="nav-logo" aria-label="Home">
-          {/* <img src={logo} alt="Logo" /> */}
+          <img src={logo} alt="Logo" />
         </a>
 
         {/* Center: Navigation Links */}

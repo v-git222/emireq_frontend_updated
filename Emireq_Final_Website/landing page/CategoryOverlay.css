@@ -6,7 +6,7 @@
    ========================================================== */
 .purple-overlay-container {
   position: absolute;
-  top: -100px; /* Moves box above the grid area */
+  top: -99px; /* Moves box above the grid area */
   right: 60px; /* Adjust horizontally as needed */
   z-index: 1000;
   pointer-events: none;
@@ -14,7 +14,7 @@
 /* Force positions — put at the end of your CSS file for immediate effect */
 .purple-overlay-container {
   position: absolute !important;
-  top: -120px !important;    /* change value to whatever you want */
+  top: -80px !important;    /* change value to whatever you want */
   right: 60px !important;    /* change value to whatever you want */
   z-index: 99999 !important;
 }
@@ -38,6 +38,7 @@
   border-radius: 12px;
   position: relative;
   z-index: 1002;
+  top: -90px;
 }
 .purple-tooltip-text {
   font-family: 'DM Sans', sans-serif;
@@ -53,16 +54,28 @@
 }
 .purple-arrow-pointer {
   position: absolute;
-  top: 20px;       /* vertical placement */
-  right: 230px;     /* horizontal placement */
-  width: 60px;      /* controls arrow size */
-  height: 40px;     /* controls arrow size */
+  top: 25rem;                /* 20px → use rem for scalability */
+  right: clamp(4rem, 10vw, 14rem); /* flexible horizontal offset */
+  width: clamp(2.5rem, 5vw, 3.75rem);  /* 40–60px range */
+  height: auto;
+  aspect-ratio: 3 / 2;         /* maintain arrow proportion */
   background-image: url('/assets/purple-arrow.png');
-  background-size: contain;  /* scale image to fit box */
+  background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   z-index: 1001;
+  pointer-events: none;        /* ensures it doesn’t block clicks below */
 }
+
+/* Optional: Adjust placement for narrow screens */
+@media (max-width: 768px) {
+  .purple-arrow-pointer {
+    top: 2rem ;
+    right: 1rem;
+    width: clamp(2rem, 8vw, 3rem);
+  }
+}
+
 /* Force the actual image element to a small size (most robust) */
 .purple-arrow-pointer,
 .purple-arrow-pointer img {
